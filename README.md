@@ -14,6 +14,7 @@ Network configuration
 ###eth0
 static 192.168.2.1
 iptables: ACCEPT, MASQUERADE and FORWARD
+services: DHCP and DNS (with dnsmasq)
 
 ###wlan0
 static 192.168.1.253 (my access point/router has 192.168.1.254)
