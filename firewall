@@ -13,6 +13,12 @@ iptables -A FORWARD -i wlan0 -o eth0 -m state --state ESTABLISHED,RELATED -j ACC
 iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
 
 iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
-iptables -A FORWARD -i wlan0 -o eth0 -j REJECT
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# ssh 10022 to orion
+iptables -t nat -A PREROUTING -p tcp -i wlan0 --dport 10022 -j DNAT --to 192.168.2.2:22
+iptables -A FORWARD -p tcp -d 192.168.2.2 --dport 10022 -j ACCEPT
+
+# reject by default
+iptables -A INPUT -i wlan0 -j REJECT
