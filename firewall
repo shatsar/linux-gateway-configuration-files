@@ -20,5 +20,9 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -t nat -A PREROUTING -p tcp -i wlan0 --dport 10022 -j DNAT --to 192.168.2.2:22
 iptables -A FORWARD -p tcp -d 192.168.2.2 --dport 10022 -j ACCEPT
 
+# port 3000 to orion
+iptables -t nat -A PREROUTING -p tcp -i wlan0 --dport 3000 -j DNAT --to 192.168.2.2:3000
+iptables -A FORWARD -p tcp -d 192.168.2.2 --dport 3000 -j ACCEPT
+
 # reject by default
 iptables -A INPUT -i wlan0 -j REJECT
